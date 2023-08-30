@@ -73,7 +73,6 @@ static inline void put_char(uint8_t c) {
             txbuf[txhead++ % sizeof txbuf] = HDLC_ESC;
     }
     txbuf[txhead++ % sizeof txbuf] = c;
-    USART0.CTRLA |= USART_DREIE_bm; // enable TX register empty irq
 }
 static inline void put_flag() { txbuf[txhead++ % sizeof txbuf] = HDLC_FLAG; }
 
@@ -121,8 +120,7 @@ int main() {
 
     PORTB.DIRSET = 1<<0;          // PB0 is TCA0 WO0 signal from CMP0
 
-//    setbaud(&USART0, 115200);     // USART0.BAUD  = 347, for 115200Bd for a 20MHz/2 F_PER
-    USART0.BAUD  = 347;
+    setbaud(&USART0, 115200);     // USART0.BAUD  = 347, for 115200Bd for a 20MHz/2 F_PER
     USART0.CTRLB = USART_TXEN_bm; // enable TX, add USART_ODME_bm to set open drain mode
     USART0.CTRLA = USART_DREIE_bm; // enable TX register empty irq
     PORTB.DIRSET = 1<<2;            // PB2 is TXD
