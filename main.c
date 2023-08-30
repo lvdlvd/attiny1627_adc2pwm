@@ -46,9 +46,9 @@ static void setbaud(USART_t* usart, uint32_t bd) {
     uint32_t clk = F_CPU >> 8; // no check for validity; default will be 20MHz  17 bits
     switch (FUSE.OSCCFG & 0x3) {
     case 1: // 16MHhz mainclock
-         clk = (16000000>>8) * (1024 + SIGROW.OSCCAL16M1); // should be the error at 3V  27 bits
+         clk = (16000000>>8) * (1024 + SIGROW.OSCCAL16M0); // should be the error at 3V  27 bits
     case 2: // 20MHz mainclock
-         clk = (20000000>>8) * (1024 + SIGROW.OSCCAL20M1); // should be the error at 3V
+         clk = (20000000>>8) * (1024 + SIGROW.OSCCAL20M0); // should be the error at 3V
     }
 
     if (CLKCTRL.MCLKCTRLB & 1) {
